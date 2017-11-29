@@ -24,7 +24,7 @@ type
     btngetAIREsult: TButton;
     lbledtusername: TLabeledEdit;
     lbledtpassword: TLabeledEdit;
-    lbledtdbbase: TLabeledEdit;  
+    lbledtdbbase: TLabeledEdit;
     procedure btn4Click(Sender: TObject);
     procedure btngetAIREsultClick(Sender: TObject);
   private
@@ -51,10 +51,7 @@ begin
   SetLength(imgids, 1);
   imgids[0] := lbledtimageId.Text;
   con1.Close;
-  con1.ConnectionString := 'Provider=SQLOLEDB.1;User ID='+ lbledtusername.Text+
-    ';Password='+ lbledtpassword.Text +
-    ';Data Source='+ lbledtserver.Text +
-    ';Initial Catalog='+ lbledtdbbase.Text;
+  con1.ConnectionString := 'Provider=SQLOLEDB.1;User ID=' + lbledtusername.Text + ';Password=' + lbledtpassword.Text + ';Data Source=' + lbledtserver.Text + ';Initial Catalog=' + lbledtdbbase.Text;
   helper.MSendAIDataFromDb(con1, lbledtpatid.Text, imgids);
 end;
 
@@ -62,16 +59,18 @@ procedure TForm1.btngetAIREsultClick(Sender: TObject);
 var
   helper: TTencentAIManager;
   imgids: TArrayImageId;
+  data: TTencentAIResult;
 begin
   helper := TTencentAIManager.Create;
   helper.imgLocalRootPath := lbledtimgLocalRootPath.Text;
-  helper.imgServerRootPath := lbledtimgServerRootPath.Text;  
+  helper.imgServerRootPath := lbledtimgServerRootPath.Text;
   con1.Close;
-  con1.ConnectionString := 'Provider=SQLOLEDB.1;User ID='+ lbledtusername.Text+
-    ';Password='+ lbledtpassword.Text +
-    ';Data Source='+ lbledtserver.Text +
-    ';Initial Catalog='+ lbledtdbbase.Text;
-  ShowMessage(helper.MGetAIResult(con1, lbledtpatid.Text).CodeName) ;
+  con1.ConnectionString := 'Provider=SQLOLEDB.1;User ID=' + lbledtusername.Text + ';Password=' + lbledtpassword.Text + ';Data Source=' + lbledtserver.Text + ';Initial Catalog=' + lbledtdbbase.Text;
+  mmo1.Lines.Clear;
+  data := helper.MGetAIResult(con1, lbledtpatid.Text);
+  mmo1.Lines.Add('Code:  ' + data.Code);
+  mmo1.Lines.Add('CodeName:  ' + data.CodeName);
+  mmo1.Lines.Add('Url:  ' + data.Url);
 
 end;
 

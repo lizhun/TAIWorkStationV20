@@ -18,9 +18,9 @@ type
 
 type
   TTencentAIResult = class
-    Code: string;
-    CodeName: string;
-    Url: string;
+    Code: string;    //     返回代码   见文档
+    CodeName: string;  //  返回代码名称
+    Url: string;        //查看AI结果的URL
   end;
 
 type
